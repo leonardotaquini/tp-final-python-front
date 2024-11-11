@@ -10,18 +10,11 @@ import {
   FormMessage,
 } from "@/components/shadcn/ui/form";
 import { Input } from "@/components/shadcn/ui/input";
-import { ArrowUp, Loader2, Paperclip } from "lucide-react";
+import { ArrowUp, Loader2 } from "lucide-react";
 import { useChatStore } from "../store/chatStore";
 import { useNavigate } from "react-router-dom";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/shadcn/ui/dropdown-menu";
-import {
-  DropdownMenuItem,
-  DropdownMenuLabel,
-} from "@radix-ui/react-dropdown-menu";
+
+import { InputFile } from "./InputFile";
 
 export const messageSchema = z.object({
   message: z.string().min(4, {
@@ -54,30 +47,7 @@ export function InputForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="my-8 flex justify-center items-center shadow rounded-3xl px-5 py-3 bg-zinc-800 w-full sm:w-2/4 mx-4 sm:mx-0 "
       >
-        <FormField
-          control={form.control}
-          name="file"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <Button className="rounded-full">
-                      <Paperclip />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-zinc-700 text-white border-none p-4">
-                    <DropdownMenuLabel className="mb-4">Selecciona un archivo</DropdownMenuLabel>
-                    <DropdownMenuItem>
-                      <Input {...field} type="file" className="bg-zinc-800 text-slate-50 border-none shadow-xl" />
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+       <InputFile />
 
         <FormField
           control={form.control}

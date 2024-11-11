@@ -1,12 +1,13 @@
 import { create, StateCreator } from "zustand";
 import { ChatInterfaceStore } from "../interfaces/chatInterface";
 import { persist } from "zustand/middleware";
-import { sendMessage, sendNormalMessage } from "../api/chatRequests";
+import { sendMessage, sendNormalMessage, uploadFile } from "../api/chatRequests";
 import { toast } from "sonner";
 
 const chatStore: StateCreator<ChatInterfaceStore> = (set, get) => ({
     messages: [],
     isLoading: false,
+    fileAvailable: false,
     sendMessage: async (message) => {
         set({ isLoading: true });
         
@@ -65,6 +66,20 @@ const chatStore: StateCreator<ChatInterfaceStore> = (set, get) => ({
             messages: [...get().messages, { query: message, result: response.data }]
         });
     },
+    uploadFile: async(file) => {
+        set({isLoading: true})
+        const response = await uploadFile(file);
+        if( response?.status !== 200){
+            toast.error('Error en el servidor', {
+                description: 'No se puede procesar la solicitud en este momento.',
+                className: 'bg-red-500 border-none text-white text-sm',
+            });
+            set({isLoading: false});
+            return;
+        }
+        set({isLoading: false, fileAvailable: true})
+
+    }
 });
 
 export const useChatStore = create<ChatInterfaceStore>()(

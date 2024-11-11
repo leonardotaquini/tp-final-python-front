@@ -47,3 +47,20 @@ export const sendNormalMessage = async (message: string) => {
     return null;
   }
 }
+
+export const uploadFile = async (file: File) => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const response = await chatRequests.post("/upload_pdf", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error("Error al subir archivo:", error);
+    return null;
+  }
+}
