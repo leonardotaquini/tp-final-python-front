@@ -42,6 +42,7 @@ const Title: React.FC = () => {
   return (
     <div className='text-3xl text-white font-semibold'>
       <TypewriterText text="¿En qué puedo ayudarte?" />
+      <small className='text-sm'>Ingrese un PDF para hacer preguntas respecto al mismo</small>
     </div>
   );
 };

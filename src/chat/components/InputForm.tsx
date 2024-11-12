@@ -14,9 +14,9 @@ import { ArrowUp, Loader2 } from "lucide-react";
 import { useChatStore } from "../store/chatStore";
 import { useNavigate } from "react-router-dom";
 
-import { InputFile } from "./InputFile";
+import { DialogFormFile } from "./DialogFormFile";
 
-export const messageSchema = z.object({
+ const messageSchema = z.object({
   message: z.string().min(4, {
     message: "El mensaje debe tener al menos 4 caracteres",
   }),
@@ -26,7 +26,10 @@ export const messageSchema = z.object({
 export function InputForm() {
   const sendMessage = useChatStore((state) => state.sendNormalMessage);
   const isLoading = useChatStore((state) => state.isLoading);
+  const fileAvailable = useChatStore((state) => state.fileAvailable);
   const navigate = useNavigate();
+
+
 
   const form = useForm<z.infer<typeof messageSchema>>({
     resolver: zodResolver(messageSchema),
@@ -47,7 +50,7 @@ export function InputForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="my-8 flex justify-center items-center shadow rounded-3xl px-5 py-3 bg-zinc-800 w-full sm:w-2/4 mx-4 sm:mx-0 "
       >
-       <InputFile />
+      <DialogFormFile />
 
         <FormField
           control={form.control}
@@ -59,6 +62,8 @@ export function InputForm() {
                   {...field}
                   placeholder="Envia una pregunta.."
                   className="border-none rounded-none bg-transparent text-gray-100 sm:text-xl focus-visible:outline-none"
+                  disabled={!fileAvailable}
+                  readOnly={!fileAvailable}
                 />
               </FormControl>
               <FormMessage />
@@ -69,6 +74,7 @@ export function InputForm() {
           type="submit"
           variant={"default"}
           className="border-none rounded-3xl"
+          disabled={!fileAvailable}
         >
           {isLoading ? <Loader2 className="animate-spin" /> : <ArrowUp />}
         </Button>

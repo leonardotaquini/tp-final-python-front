@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/shadcn/ui/button";
 import {
   Form,
   FormControl,
@@ -10,34 +9,33 @@ import {
   FormMessage,
 } from "@/components/shadcn/ui/form";
 import { Input } from "@/components/shadcn/ui/input";
-import { Paperclip } from "lucide-react";
+import { Button } from "@/components/shadcn/ui/button";
 import { useChatStore } from "../store/chatStore";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/shadcn/ui/dropdown-menu";
-import {
-  DropdownMenuItem,
-  DropdownMenuLabel,
-} from "@radix-ui/react-dropdown-menu";
 
+// Actualiza el esquema para aceptar un archivo de tipo File
 export const inputFileSchema = z.object({
-  file: z.any().optional(),
+  file: z
+    .instanceof(File)
+    .refine((file) => file instanceof File, {
+      message: "El archivo es requerido",
+    }),
 });
 
 export function InputFile() {
-  const uploadFile = useChatStore((state) => state.uploadFile);
-
   const form = useForm<z.infer<typeof inputFileSchema>>({
     resolver: zodResolver(inputFileSchema),
     defaultValues: {
-      file: "",
+      file: undefined,
     },
   });
 
+  const uploadFile = useChatStore((state) => state.uploadFile);
+
   async function onSubmit(data: z.infer<typeof inputFileSchema>) {
-    await uploadFile(data.file);
+    const formData = new FormData();
+    formData.append("file", data.file);
+   console.log(formData.get("file"));
+    await uploadFile(formData);
     form.reset();
   }
 
@@ -50,24 +48,22 @@ export function InputFile() {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <Button className="rounded-full">
-                      <Paperclip />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-zinc-700 text-white border-none p-4">
-                    <DropdownMenuLabel className="mb-4">Selecciona un archivo</DropdownMenuLabel>
-                    <DropdownMenuItem>
-                      <Input {...field} type="file" className="bg-zinc-800 text-slate-50 border-none shadow-xl" />
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <Input
+                  type="file"
+                  className="border-none shadow-xl"
+                  onChange={(e) => {
+                    // Guarda el archivo seleccionado en el estado de React Hook Form
+                    if (e.target.files && e.target.files[0]) {
+                      field.onChange(e.target.files[0]);
+                    }
+                  }}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+        <Button type="submit" className="w-full">Subir archivo</Button>
       </form>
     </Form>
   );
