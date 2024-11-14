@@ -1,30 +1,47 @@
-# React + TypeScript + Vite
+# Chat-PDF
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una aplicación web que permite a los usuarios chatear y subir archivos PDF para su procesamiento. La aplicación está construida con React, TypeScript, Vite y utiliza Zustand para el manejo del estado.
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Subida de archivos PDF
+- Envío de mensajes de chat
+- Visualización de mensajes y respuestas
+- Animaciones con Framer Motion
+- Estilos con Tailwind CSS
 
-## Expanding the ESLint configuration
+## Instalación
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Clona el repositorio:
 
-- Configure the top-level `parserOptions` property like this:
+    ```sh
+    git clone https://github.com/leonardotaquini/tp-final-python-front.git
+    cd tp-final-python-front
+    ```
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+2. Instala las dependencias:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+    ```sh
+    npm install
+    ```
+
+## Uso
+
+1. Inicia el servidor de desarrollo:
+
+    ```sh
+    npm run dev
+    ```
+
+2. Abre tu navegador y navega a `http://localhost:5173`.
+
+## Tecnologías Utilizadas
+* React
+* TypeScript
+* Vite
+* Zustand
+* Tailwind CSS
+* Framer Motion
+* Radix UI
+* Zod
+* Axios
