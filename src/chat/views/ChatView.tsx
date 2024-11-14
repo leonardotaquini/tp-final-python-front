@@ -10,7 +10,7 @@ export const ChatView = () => {
       <ScrollArea className="h-full w-full sm:px-44">
         {messages &&
           messages.map((message, index) => (
-            <div key={index} className="flex w-full flex-col max-h-[200px] sm:max-h-[238px]">
+            <div key={index} className="flex w-full flex-col">
               <p className="text-gray-100 rounded-lg w-fit bg-zinc-900 p-4 m-4 rounded-tl-none">
                 {message.query}
               </p>

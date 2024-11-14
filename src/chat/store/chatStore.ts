@@ -81,6 +81,10 @@ const chatStore: StateCreator<ChatInterfaceStore> = (set, get) => ({
             return;
         }
         set({ isLoading: false, fileAvailable: true, pdfName: response.data.filename, messages: [] });
+        toast.success('Archivo subido correctamente', {
+            description: 'El archivo se ha subido correctamente, puede continuar con la conversación.',
+            className: 'bg-green-500 border-none text-white text-sm',
+        });
 
     },
     getPdfName: async () => {
