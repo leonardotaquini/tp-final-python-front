@@ -60,7 +60,7 @@ export function InputForm() {
               <FormControl>
                 <Input
                   {...field}
-                  placeholder="Envia una pregunta.."
+                  placeholder={fileAvailable ? "Escribe un mensaje" : " ←  Sube un archivo"}
                   className="border-none rounded-none bg-transparent text-gray-100 sm:text-xl focus-visible:outline-none"
                   disabled={!fileAvailable}
                   readOnly={!fileAvailable}

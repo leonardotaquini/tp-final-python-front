@@ -11,6 +11,8 @@ import {
 import { Input } from "@/components/shadcn/ui/input";
 import { Button } from "@/components/shadcn/ui/button";
 import { useChatStore } from "../store/chatStore";
+import { useEffect, useState } from "react";
+import { Loader2 } from "lucide-react";
 
 // Actualiza el esquema para aceptar un archivo de tipo File
 export const inputFileSchema = z.object({
@@ -29,13 +31,26 @@ export function InputFile() {
     },
   });
 
+  const [hasFile, setHasFile] = useState(false);
+
+  useEffect(() => {
+    if (form.getValues("file")) {
+      setHasFile(true);
+    } else {
+      setHasFile(false);
+    }
+  }, [ form.getValues("file")] );
+
+  
+
   const uploadFile = useChatStore((state) => state.uploadFile);
+  const isLoading = useChatStore((state) => state.isLoading);
 
   async function onSubmit(data: z.infer<typeof inputFileSchema>) {
     const formData = new FormData();
     formData.append("file", data.file);
-   console.log(formData.get("file"));
-    await uploadFile(formData);
+    const doc = formData.get("file");
+    await uploadFile(doc);
     form.reset();
   }
 
@@ -52,7 +67,7 @@ export function InputFile() {
                   type="file"
                   className="border-none shadow-xl"
                   onChange={(e) => {
-                    // Guarda el archivo seleccionado en el estado de React Hook Form
+                    
                     if (e.target.files && e.target.files[0]) {
                       field.onChange(e.target.files[0]);
                     }
@@ -63,7 +78,11 @@ export function InputFile() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">Subir archivo</Button>
+        <Button type="submit" className="w-full" disabled={ !hasFile }>
+          {isLoading 
+            ? <Loader2 className="animate-spin" />
+            : "Subir archivo"}
+        </Button>
       </form>
     </Form>
   );

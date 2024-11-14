@@ -5,7 +5,7 @@ export interface ChatInterfaceStore {
   fileAvailable:boolean
   sendMessage: (message: string) => Promise<void>;
   sendNormalMessage: (message: string) => Promise<void>;
-  uploadFile: (file: FormData) => Promise<void>;
+  uploadFile: (file: FormDataEntryValue | null) => Promise<void>;
 
 }
 

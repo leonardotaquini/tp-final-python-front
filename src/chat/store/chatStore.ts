@@ -68,15 +68,15 @@ const chatStore: StateCreator<ChatInterfaceStore> = (set, get) => ({
     },
     uploadFile: async(file) => {
         set({isLoading: true})
-        // const response = await uploadFile(file);
-        // if( response?.status !== 200){
-        //     toast.error('Error en el servidor', {
-        //         description: 'No se puede procesar la solicitud en este momento.',
-        //         className: 'bg-red-500 border-none text-white text-sm',
-        //     });
-        //     set({isLoading: false});
-        //     return;
-        // }
+        const response = await uploadFile(file);
+        if( response?.status !== 200){
+            toast.error('Error en el servidor', {
+                description: 'No se puede procesar la solicitud en este momento.',
+                className: 'bg-red-500 border-none text-white text-sm',
+            });
+            set({isLoading: false});
+            return;
+        }
         set({isLoading: false, fileAvailable: true})
 
     }

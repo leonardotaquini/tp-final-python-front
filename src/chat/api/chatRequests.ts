@@ -48,12 +48,9 @@ export const sendNormalMessage = async (message: string) => {
   }
 }
 
-export const uploadFile = async (file: File) => {
-  const formData = new FormData();
-  formData.append("file", file);
-
+export const uploadFile = async (file: FormDataEntryValue | null) => {
   try {
-    const response = await chatRequests.post("/upload_pdf", formData, {
+    const response = await chatRequests.post("/upload_pdf", {file}, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
