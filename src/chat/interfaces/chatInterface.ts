@@ -2,10 +2,12 @@
 export interface ChatInterfaceStore {
   messages: Messages[];
   isLoading: boolean;
-  fileAvailable:boolean
+  fileAvailable:boolean;
+  pdfName: string;
   sendMessage: (message: string) => Promise<void>;
   sendNormalMessage: (message: string) => Promise<void>;
   uploadFile: (file: FormData | null) => Promise<void>;
+  getPdfName: () => Promise<void>;
 
 }
 
@@ -15,4 +17,8 @@ export interface Messages {
 }
 export interface QueryResponse {
   answer: string;
+}
+
+export interface GetPDF {
+  filename: string;
 }

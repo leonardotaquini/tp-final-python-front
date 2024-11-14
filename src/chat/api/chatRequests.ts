@@ -1,5 +1,5 @@
 import axios from "axios";
-import { QueryResponse } from "../interfaces/chatInterface";
+import { GetPDF, QueryResponse } from "../interfaces/chatInterface";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -59,6 +59,17 @@ export const uploadFile = async (file: FormData | null) => {
     return response;
   } catch (error) {
     console.error("Error al subir archivo:", error);
+    return null;
+  }
+}
+
+export const getPdfNameApi = async () => {
+  try {
+    const response = await chatRequests.get<GetPDF>("/get_pdf_name");
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error("Error al obtener el nombre del PDF:", error);
     return null;
   }
 }
