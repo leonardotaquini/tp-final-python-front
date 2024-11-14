@@ -38,9 +38,9 @@ export const sendMessage = async (message: string) => {
   }
 };
 
-export const sendNormalMessage = async (message: string) => {
+export const sendNormalMessage = async (question: string) => {
   try {
-    const response = await chatRequests.post("/get_answer", { message });
+    const response = await chatRequests.post("/ask_question", { question });
     return response;
   } catch (error) {
     console.error("Error al enviar mensaje:", error);
@@ -48,9 +48,9 @@ export const sendNormalMessage = async (message: string) => {
   }
 }
 
-export const uploadFile = async (file: FormDataEntryValue | null) => {
+export const uploadFile = async (file: FormData | null) => {
   try {
-    const response = await chatRequests.post("/upload_pdf", {file}, {
+    const response = await chatRequests.post("/upload_pdf", file, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

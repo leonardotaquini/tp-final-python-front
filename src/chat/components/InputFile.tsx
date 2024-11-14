@@ -48,9 +48,8 @@ export function InputFile() {
 
   async function onSubmit(data: z.infer<typeof inputFileSchema>) {
     const formData = new FormData();
-    formData.append("file", data.file);
-    const doc = formData.get("file");
-    await uploadFile(doc);
+  formData.append("file", data.file);
+  await uploadFile(formData);
     form.reset();
   }
 

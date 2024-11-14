@@ -67,6 +67,7 @@ const chatStore: StateCreator<ChatInterfaceStore> = (set, get) => ({
         });
     },
     uploadFile: async(file) => {
+        console.log(file);
         set({isLoading: true})
         const response = await uploadFile(file);
         if( response?.status !== 200){
