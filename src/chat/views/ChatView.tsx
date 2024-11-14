@@ -11,10 +11,10 @@ export const ChatView = () => {
         {messages &&
           messages.map((message, index) => (
             <div key={index} className="flex w-full flex-col">
-              <p className="text-gray-100 rounded-lg w-fit bg-zinc-900 p-4 m-4 rounded-tl-none">
+              <p className="text-gray-100 rounded-lg w-fit self-end bg-zinc-900 p-4 m-4 rounded-tl-none">
                 {message.query}
               </p>
-              <p className="text-gray-100 rounded-lg w-fit self-end bg-zinc-700 p-4 m-4 rounded-tr-none">
+              <p className="text-gray-100 rounded-lg w-fit  bg-zinc-700 p-4 m-4 rounded-tr-none">
                 {message.result}
               </p>
             </div>

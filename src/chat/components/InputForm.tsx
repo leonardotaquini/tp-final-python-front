@@ -62,7 +62,7 @@ export function InputForm() {
                   {...field}
                   placeholder={fileAvailable ? "Escribe un mensaje" : " ←  Sube un archivo"}
                   className="border-none rounded-none bg-transparent text-gray-100 sm:text-xl focus-visible:outline-none"
-                  disabled={!fileAvailable}
+                  disabled={!fileAvailable || isLoading} 
                   readOnly={!fileAvailable}
                 />
               </FormControl>
