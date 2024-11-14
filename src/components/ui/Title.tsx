@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useChatStore } from '@/chat/store/chatStore';
 
 type TypewriterTextProps = {
   text: string;
@@ -10,7 +11,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ text, speed = 50 }) => 
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
-    setDisplayedText(""); 
+    setDisplayedText("");
 
     const timeoutIds = text.split("").map((_, i) =>
       setTimeout(() => setDisplayedText((prev) => prev + text[i]), i * speed)
@@ -29,7 +30,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ text, speed = 50 }) => 
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ repeat: Infinity, duration: 0.4 }}
-        
+
       >
         &nbsp;
       </motion.span>
@@ -39,10 +40,16 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ text, speed = 50 }) => 
 
 
 const Title: React.FC = () => {
+  const pdfName = useChatStore(state => state.pdfName);
   return (
     <div className='text-3xl text-white font-semibold'>
       <TypewriterText text="¿En qué puedo ayudarte?" />
-      <small className='text-sm'>Ingrese un PDF para hacer preguntas respecto al mismo</small>
+      {
+        pdfName ?
+          <small className='text-sm'>PDF seleccionado: {pdfName}</small>
+          : <small className='text-sm'>Ingrese un PDF para hacer preguntas respecto al mismo</small>
+      }
+
     </div>
   );
 };
