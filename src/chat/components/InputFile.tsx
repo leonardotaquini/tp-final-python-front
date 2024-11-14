@@ -23,7 +23,7 @@ export const inputFileSchema = z.object({
     }),
 });
 
-export function InputFile() {
+export function InputFile({ close }: { close: () => void}) {
   const form = useForm<z.infer<typeof inputFileSchema>>({
     resolver: zodResolver(inputFileSchema),
     defaultValues: {
@@ -51,6 +51,7 @@ export function InputFile() {
   formData.append("file", data.file);
   await uploadFile(formData);
     form.reset();
+    close();
   }
 
   return (
