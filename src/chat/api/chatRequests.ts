@@ -1,4 +1,5 @@
 import axios from "axios";
+import { QueryResponse } from "../interfaces/chatInterface";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -40,7 +41,7 @@ export const sendMessage = async (message: string) => {
 
 export const sendNormalMessage = async (question: string) => {
   try {
-    const response = await chatRequests.post("/ask_question", { question });
+    const response = await chatRequests.post<QueryResponse>("/ask_question", { question });
     return response;
   } catch (error) {
     console.error("Error al enviar mensaje:", error);

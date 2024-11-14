@@ -13,3 +13,6 @@ export interface Messages {
   query: string;
   result: string;
 }
+export interface QueryResponse {
+  answer: string;
+}

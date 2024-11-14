@@ -12,7 +12,6 @@ const chatStore: StateCreator<ChatInterfaceStore> = (set, get) => ({
         set({ isLoading: true });
         
         const response = await sendMessage(message);
-        console.log(response);
         if (!response) {
             toast.error("Error en la conexión con el servidor", {
                 description: 'No se puede procesar la solicitud en este momento.',
@@ -51,7 +50,7 @@ const chatStore: StateCreator<ChatInterfaceStore> = (set, get) => ({
     sendNormalMessage: async (message) => {
         set({ isLoading: true });
         const response = await sendNormalMessage(message);
-        console.log(response);
+        console.log(response?.data.answer);
         if (response?.status !== 200) {
             toast.error("Error en la conexión con el servidor", {
                 description: 'No se puede procesar la solicitud en este momento.',
@@ -61,9 +60,9 @@ const chatStore: StateCreator<ChatInterfaceStore> = (set, get) => ({
             return;
         }
 
+        get().messages.push({ query: message, result: response.data.answer })
         set({
             isLoading: false, 
-            messages: [...get().messages, { query: message, result: response.data }]
         });
     },
     uploadFile: async(file) => {

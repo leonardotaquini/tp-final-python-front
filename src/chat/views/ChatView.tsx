@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 
 export const ChatView = () => {
   const messages = useChatStore((state) => state.messages);
-
   return (
     <main className="bg-neutral-800 min-h-screen flex flex-col justify-between items-center">
       <ScrollArea className="h-full w-full sm:px-44">
