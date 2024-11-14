@@ -60,13 +60,14 @@ const chatStore: StateCreator<ChatInterfaceStore> = (set, get) => ({
             return;
         }
 
-
+        get().messages.push({ query: message, result: response.data.answer })
         set({
-            isLoading: false,
+            isLoading: false, 
             messages: [
                 ...get().messages,
-                { query: message, result: response.data.answer }
+                { query: message, result: response?.data.answer }
             ]
+            
         });
     },
     uploadFile: async (file) => {
