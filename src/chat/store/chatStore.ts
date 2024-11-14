@@ -60,9 +60,13 @@ const chatStore: StateCreator<ChatInterfaceStore> = (set, get) => ({
             return;
         }
 
-        get().messages.push({ query: message, result: response.data.answer })
         set({
             isLoading: false, 
+            messages: [
+                ...get().messages,
+                { query: message, result: response?.data.answer }
+            ]
+            
         });
     },
     uploadFile: async(file) => {
@@ -78,6 +82,10 @@ const chatStore: StateCreator<ChatInterfaceStore> = (set, get) => ({
             return;
         }
         set({isLoading: false, fileAvailable: true})
+        toast.success('Archivo subido correctamente', {
+            description: 'Ya puedes hacer preguntas sobre el archivo',
+            className: 'bg-green-500 border-none text-white text-sm',
+        });
 
     }
 });
