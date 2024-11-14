@@ -59,8 +59,6 @@ const chatStore: StateCreator<ChatInterfaceStore> = (set, get) => ({
             set({ isLoading: false });
             return;
         }
-
-        get().messages.push({ query: message, result: response.data.answer })
         set({
             isLoading: false, 
             messages: [
@@ -82,7 +80,7 @@ const chatStore: StateCreator<ChatInterfaceStore> = (set, get) => ({
             set({ isLoading: false });
             return;
         }
-        set({ isLoading: false, fileAvailable: true, pdfName: response.data.filename });
+        set({ isLoading: false, fileAvailable: true, pdfName: response.data.filename, messages: [] });
 
     },
     getPdfName: async () => {
